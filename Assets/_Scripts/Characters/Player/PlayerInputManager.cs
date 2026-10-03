@@ -1,3 +1,6 @@
+using System.Security;
+using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +11,10 @@ public class PlayerInputManager : MonoBehaviour
 
     PlayerControls playerControls;
 
-    [SerializeField] Vector2 movement;
+    [SerializeField] Vector2 movementInput;
+    public float verticalInput;
+    public float horizontalInput;
+    public float moveAmount;
 
     private void Awake()
     {
@@ -33,6 +39,11 @@ public class PlayerInputManager : MonoBehaviour
         instance.enabled = false;
     }
 
+    private void Update()
+    {
+        HandleMovementInput();
+    }
+
     private void OnSceneChanged(Scene oldScene, Scene newScene)
     {
         // if loading into world scene, enable players controls
@@ -54,7 +65,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             playerControls = new PlayerControls();
 
-            playerControls.PlayerMovement.Movement.performed += i => movement = i.ReadValue<Vector2>();
+            playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
         }
 
         playerControls.Enable();
@@ -65,4 +76,41 @@ public class PlayerInputManager : MonoBehaviour
         // if destroy this object, unsub from this event
         SceneManager.activeSceneChanged -= OnSceneChanged;
     }
+
+    // if we minimize or lower the window, stop adjustin inputs
+    private void OnApplicationFocus(bool focus)
+    {
+        if (enabled)
+        {
+            if (focus)
+            {
+                playerControls.Enable();
+            }
+            else
+            {
+                playerControls.Disable();
+            }
+        }
+    }
+
+    private void HandleMovementInput()
+    {
+        verticalInput = movementInput.y;
+        horizontalInput = movementInput.x;
+
+        // return the abs number
+        moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
+
+        // clamp the values, so they're 0, 0.5 or 1 (optional)  
+        if(moveAmount <= 0.5 && moveAmount > 0)
+        {
+            moveAmount = 0.5f;
+        }
+        else if(moveAmount > 0.5f && moveAmount <= 1)
+        {
+            moveAmount = 1;
+        }
+        
+    }
+
 }

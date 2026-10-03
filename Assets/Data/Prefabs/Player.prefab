@@ -61,7 +61,16 @@ PrefabInstance:
       addedObject: {fileID: 3283838176674232000}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8337602905275562435}
+      addedObject: {fileID: 9010939591374443883}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9186502219122293762}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4225172087078109580}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8640915872245563636}
   m_SourcePrefab: {fileID: 100100000, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
 --- !u!1 &7098273600992586596 stripped
 GameObject:
@@ -95,7 +104,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &8337602905275562435
+--- !u!114 &9010939591374443883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,6 +113,77 @@ MonoBehaviour:
   m_GameObject: {fileID: 7098273600992586596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac396d2a3788a44fb21588a6ab94baa, type: 3}
+  m_Script: {fileID: 11500000, guid: b13d0b702eda7e544809a7c38226b94e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterManager
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  characterController: {fileID: 0}
+--- !u!114 &-9186502219122293762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098273600992586596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e39b782526fb24283227f84a59a360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerNetworkManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  networkPosition:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  networkRotation:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
+  networkVelocity: {x: 0, y: 0, z: 0}
+  networkPositionSmoothTime: 0.1
+  networkRotationSmoothTime: 0.1
+--- !u!114 &-4225172087078109580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098273600992586596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e0150a46c26ef439c206fb3886a08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLocomotionManager
+  verticalMovement: 0
+  horizontalMovement: 0
+  moveAmount: 0
+  walkingSpeed: 2
+  runningSpeed: 5
+  rotationSpeed: 15
+--- !u!143 &-8640915872245563636
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098273600992586596}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.7
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.9, z: 0}
