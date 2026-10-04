@@ -4,6 +4,9 @@ public class CharacterAnimatorManager : MonoBehaviour
 {
     CharacterManager character;
 
+    float vertical;
+    float horizontal;
+
     protected virtual void Awake()
     {
         character = GetComponent<CharacterManager>();
