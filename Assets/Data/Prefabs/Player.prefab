@@ -58,6 +58,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5179759544845910119}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 3283838176674232000}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
       insertIndex: -1
@@ -70,6 +73,9 @@ PrefabInstance:
       addedObject: {fileID: -4225172087078109580}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8825879313585656692}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
+      insertIndex: -1
       addedObject: {fileID: -8640915872245563636}
   m_SourcePrefab: {fileID: 100100000, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
 --- !u!1 &7098273600992586596 stripped
@@ -77,6 +83,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
   m_PrefabInstance: {fileID: 7945277639189534261}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &5179759544845910119
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098273600992586596}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
+  m_Controller: {fileID: 9100000, guid: 93372fea4477a47439186a75d18cc3cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3283838176674232000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   ShowTopMostFoldoutHeaderGroup: 1
   characterController: {fileID: 0}
+  animator: {fileID: 0}
+  playerAnimatorManager: {fileID: 0}
+  playerLocomotionManager: {fileID: 0}
 --- !u!114 &-9186502219122293762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +193,18 @@ MonoBehaviour:
   walkingSpeed: 2
   runningSpeed: 5
   rotationSpeed: 15
+--- !u!114 &8825879313585656692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098273600992586596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf7d288fdeea684c80073fe757a8f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationManager
 --- !u!143 &-8640915872245563636
 CharacterController:
   m_ObjectHideFlags: 0

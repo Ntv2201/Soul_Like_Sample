@@ -1324,10 +1324,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -2697709227641635619, guid: d7abd1c060e8cd34e80d9e11065a87e8, type: 3}
-      propertyPath: collideWithLayers.m_Bits
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5042326377514297009, guid: d7abd1c060e8cd34e80d9e11065a87e8, type: 3}
       propertyPath: m_Name
       value: Player Camera (Left & Right)
@@ -1371,10 +1367,6 @@ PrefabInstance:
     - target: {fileID: 7473896312863051997, guid: d7abd1c060e8cd34e80d9e11065a87e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9143201714837133501, guid: d7abd1c060e8cd34e80d9e11065a87e8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

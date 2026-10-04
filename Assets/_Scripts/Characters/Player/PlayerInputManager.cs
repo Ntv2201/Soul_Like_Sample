@@ -8,6 +8,7 @@ public class PlayerInputManager : MonoBehaviour
 {
 
     public static PlayerInputManager instance;
+    public PlayerManager player;
 
     PlayerControls playerControls;
 
@@ -110,7 +111,7 @@ public class PlayerInputManager : MonoBehaviour
         moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
         // clamp the values, so they're 0, 0.5 or 1 (optional)  
-        if(moveAmount <= 0.5 && moveAmount > 0)
+        if(moveAmount > 0 && moveAmount <= 0.5f)
         {
             moveAmount = 0.5f;
         }
@@ -118,7 +119,16 @@ public class PlayerInputManager : MonoBehaviour
         {
             moveAmount = 1;
         }
-        
+
+        // why pass 0?, cuz we only want non-strafe movement
+        // we use the horizontal when we are strafing or locked on
+        if(player == null) return;
+
+        // if we are not locked on, only use the move amout
+        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+
+        // if we are locked on, pass the hori movement as well
+
     }
 
     private void HandleCameraMovementInput()

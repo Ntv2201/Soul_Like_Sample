@@ -5,12 +5,14 @@ using UnityEngine.TextCore.Text;
 
 public class CharacterManager : NetworkBehaviour
 {
-    public CharacterController characterController;
+    [HideInInspector] public CharacterController characterController;
+    [HideInInspector] public Animator animator;
     CharacterNetworkManager characterNetworkManager;
     protected virtual void Awake()
     {
         DontDestroyOnLoad(this);
 
+        animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         characterNetworkManager = GetComponent<CharacterNetworkManager>();
     }
