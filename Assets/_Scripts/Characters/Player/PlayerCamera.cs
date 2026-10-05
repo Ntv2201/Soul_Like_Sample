@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     public static PlayerCamera instance;
-
     public PlayerManager player;
     public Camera cameraObject;
 
@@ -67,7 +66,7 @@ public class PlayerCamera : MonoBehaviour
         transform.position = targetCameraPosition;
     }
 
-    private void HandleRotation()
+private void HandleRotation()
     {
         // locked on, force the rotation toward target
 
@@ -84,19 +83,12 @@ public class PlayerCamera : MonoBehaviour
         // clamp the up and down look angle between a max and a min value
         upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minimumPivot, maximumPivot);
 
-        Vector3 cameraRotation = Vector3.zero;
-        Quaternion targetRotation;
 
         // rotate this onject left and right
-        cameraRotation.y = leftAndRightLookAngle;
-        targetRotation = Quaternion.Euler(cameraRotation);
-        transform.rotation = targetRotation;
+        transform.rotation = Quaternion.Euler(0, leftAndRightLookAngle, 0);
 
         // rotate thi pivot game object up and down
-        cameraRotation = Vector3.zero;
-        cameraRotation.x = upAndDownLookAngle;
-        targetRotation = Quaternion.Euler(cameraRotation);
-        cameraPivotTransform.localRotation = targetRotation;
+        cameraPivotTransform.localRotation = Quaternion.Euler(upAndDownLookAngle, 0, 0);
         
     }
 
@@ -113,6 +105,7 @@ public class PlayerCamera : MonoBehaviour
             targetCameraZPosition = -(distanceFromHitObject - cameraCollisionRadius);
         }
 
+        // limit the distance so the camera can't get through the charater (avoid see inside us)
         if(Mathf.Abs(targetCameraZPosition) < cameraCollisionRadius)
         {
             targetCameraZPosition = -cameraCollisionRadius;
