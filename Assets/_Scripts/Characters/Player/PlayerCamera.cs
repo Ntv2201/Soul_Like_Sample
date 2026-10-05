@@ -66,7 +66,7 @@ public class PlayerCamera : MonoBehaviour
         transform.position = targetCameraPosition;
     }
 
-private void HandleRotation()
+    private void HandleRotation()
     {
         // locked on, force the rotation toward target
 
