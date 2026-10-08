@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class PlayerCamera : MonoBehaviour
 
     [Header("Camera Settings")]
     private float cameraSmoothSpeed = 1; // the bigger the number, the longer it takes to reach to its desired position
-    [SerializeField] private float upAndDownRotateSpeed = 200; 
+    [SerializeField] private float upAndDownRotationSpeed = 200; 
     [SerializeField] private float leftAndRightRotationSpeed = 200; 
     [SerializeField] float minimumPivot = -30;
     [SerializeField] float maximumPivot = 60;
@@ -45,7 +46,6 @@ public class PlayerCamera : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         cameraZPosition = cameraObject.transform.localPosition.z;
-
     }
 
     public void HandleAllCameraActions()
@@ -68,51 +68,52 @@ public class PlayerCamera : MonoBehaviour
 
     private void HandleRotation()
     {
-        // locked on, force the rotation toward target
-
-        // else rotate regularly
-
-        // normal rotation
-
-        // rotate left and right based on horizontal movement
         leftAndRightLookAngle += (PlayerInputManager.instance.cameraHorizontalInput * leftAndRightRotationSpeed) * Time.deltaTime;
+        upAndDownLookAngle -= (PlayerInputManager.instance.cameraVerticalInput * upAndDownRotationSpeed) * Time.deltaTime;
 
-        // rotate up and down based on vertical movement
-        upAndDownLookAngle -= (PlayerInputManager.instance.cameraVerticalInput * upAndDownRotateSpeed) * Time.deltaTime;
-
-        // clamp the up and down look angle between a max and a min value
         upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minimumPivot, maximumPivot);
 
-
-        // rotate this onject left and right
+        // rotate the camera left and right
         transform.rotation = Quaternion.Euler(0, leftAndRightLookAngle, 0);
 
-        // rotate thi pivot game object up and down
+        // rotate the camera up and down
         cameraPivotTransform.localRotation = Quaternion.Euler(upAndDownLookAngle, 0, 0);
-        
+
     }
 
     private void HandleCollision()
     {
         targetCameraZPosition = cameraZPosition;
-        RaycastHit hit;
-        Vector3 direction = cameraObject.transform.position - cameraPivotTransform.position;
-        direction.Normalize();
 
-        if(Physics.SphereCast(cameraPivotTransform.position, cameraCollisionRadius, direction, out hit, Mathf.Abs(targetCameraZPosition), collideWithLayers))
+        // direction for collision check
+        Vector3 direction = (cameraObject.transform.position - cameraPivotTransform.position).normalized;
+        
+        // check if there is an object infront of our desired direction
+        if(Physics.SphereCast(cameraPivotTransform.position, cameraCollisionRadius, direction,
+                            out var hit, Mathf.Abs(targetCameraZPosition), collideWithLayers))
         {
+            // if there is, we get our distance from it
             float distanceFromHitObject = Vector3.Distance(cameraPivotTransform.position, hit.point);
+
+            // we then equate our target z position to the following
             targetCameraZPosition = -(distanceFromHitObject - cameraCollisionRadius);
         }
 
-        // limit the distance so the camera can't get through the charater (avoid see inside us)
-        if(Mathf.Abs(targetCameraZPosition) < cameraCollisionRadius)
-        {
-            targetCameraZPosition = -cameraCollisionRadius;
-        }
+        // limit the camera distance from collision to its target position when collides with 
+        targetCameraZPosition = Mathf.Clamp(targetCameraZPosition, cameraZPosition, -cameraCollisionRadius);
 
+        // make the camera move to its target position smoothly
         cameraObjectPosition.z = Mathf.Lerp(cameraObject.transform.localPosition.z, targetCameraZPosition, 0.2f);
         cameraObject.transform.localPosition = cameraObjectPosition;
+
+    }
+
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(cameraObject.transform.position, cameraCollisionRadius);
+        Gizmos.color = Color.red;
     }
 
 }

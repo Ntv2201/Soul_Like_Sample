@@ -18,4 +18,20 @@ public class CharacterAnimatorManager : MonoBehaviour
         character.animator.SetFloat("Horizontal", horizontalValue, .1f, Time.deltaTime);
         character.animator.SetFloat("Vertical", verticalValue, .1f, Time.deltaTime);
     }
+
+    public virtual void PlayTargetAnimation(
+        string targetAnimation, bool isPerformingAction, 
+        bool applyRootMotion = true, bool canRotate = false, 
+        bool canMove = false)
+    {
+        character.animator.applyRootMotion = applyRootMotion;
+        character.animator.CrossFade(targetAnimation, 0.2f);
+
+        // can be used to stop character from attempting other action
+        // (for example: if u get damaged and begin performing a damage action, this flag will turn true of you're stunned)
+        character.isPerformingAction = isPerformingAction;
+        character.canMove = canMove;
+        character.canRotate = canRotate;
+    }
+
 }

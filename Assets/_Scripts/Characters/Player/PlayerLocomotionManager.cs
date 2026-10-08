@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class PlayerLocomotionManager : CharacterLocomotionManager
@@ -11,9 +12,13 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     private Vector3 moveDirection;
     private Vector3 targetRotationDirection;
 
+    [Header("Movement Settings")]
     [SerializeField] float walkingSpeed = 2;
     [SerializeField] float runningSpeed = 5;
     [SerializeField] float rotationSpeed = 15;
+
+    [Header("Dodge")]
+    private Vector3 rollDirection;
 
     protected override void Awake()
     {
@@ -52,8 +57,6 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         HandleRotation();
     }
     
-
-
     private void GetMovementValues()
     {
         verticalMovement = PlayerInputManager.instance.verticalInput;
@@ -65,6 +68,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private void HandleGroundMovement()
     {
+        if(!player.canMove)
+            return;
+            
         GetMovementValues();
 
         // move direction is based on camera facing direction
@@ -88,6 +94,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private void HandleRotation()
     {
+        if(!player.canRotate) 
+            return;
+
         targetRotationDirection = Vector3.zero;
         targetRotationDirection =  (PlayerCamera.instance.cameraObject.transform.forward * verticalMovement) + 
                                     (PlayerCamera.instance.cameraObject.transform.right * horizontalMovement);
@@ -106,6 +115,32 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     }
 
+    public void AttempToPerformDodge()
+    {
+        if(player.isPerformingAction) return;
 
+        if(PlayerInputManager.instance.moveAmount > 0)
+        {
+            Vector3 cameraForward = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+            Vector3 cameraRight = PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+
+            rollDirection = (cameraForward + cameraRight).normalized;
+
+            rollDirection.y = 0;
+
+            rollDirection.Normalize();
+            
+            player.transform.rotation = Quaternion.LookRotation(rollDirection);
+
+            // perform roll animation
+            player.playerAnimatorManager.PlayTargetAnimation("roll_forward_01", true, true);
+        }
+
+        else
+        {
+            // perfrom backstep animation
+        }
+
+    }
 
 }
