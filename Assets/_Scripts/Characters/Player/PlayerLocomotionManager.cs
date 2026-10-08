@@ -139,6 +139,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         else
         {
             // perfrom backstep animation
+            player.playerAnimatorManager.PlayTargetAnimation("back_step_01", true, true);
         }
 
     }
