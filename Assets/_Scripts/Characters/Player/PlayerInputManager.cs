@@ -26,6 +26,8 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Input Actions")]
     [SerializeField] bool dodgeInput = false;
+    [SerializeField] bool sprintInput = false;
+
 
     private void Awake()
     {
@@ -60,6 +62,7 @@ public class PlayerInputManager : MonoBehaviour
         HandlePlayerMovementInput();
         HandleCameraMovementInput();
         HandleDodgeInput();
+        HandleSprinting();
     }
 
     private void OnSceneChanged(Scene oldScene, Scene newScene)
@@ -86,6 +89,11 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamera.CameraControls.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerAction.Dodge.performed += i => dodgeInput = true;
+
+            // holding the input, set the bool to true
+            playerControls.PlayerAction.Sprint.performed += i => sprintInput = true;
+            // release the input, set the bool to false
+            playerControls.PlayerAction.Sprint.canceled += i => sprintInput = false;
         }
         playerControls.Enable();
     }
@@ -136,7 +144,7 @@ public class PlayerInputManager : MonoBehaviour
         if(player == null) return;
 
         // if we are not locked on, only use the move amout
-        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
 
         // if we are locked on, pass the hori movement as well
 
@@ -159,6 +167,19 @@ public class PlayerInputManager : MonoBehaviour
             
             // perform a dodge;
             player.playerLocomotionManager.AttempToPerformDodge();
+        }
+    }
+
+    private void HandleSprinting()
+    {
+        if (sprintInput)
+        {
+            // handle sprinting 
+            player.playerLocomotionManager.HandleSprinting();
+        }
+        else
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
         }
     }
 
