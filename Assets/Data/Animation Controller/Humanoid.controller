@@ -30,7 +30,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: roll_forward_01
-  m_Speed: 2
+  m_Speed: 2.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6296386704844635348}
@@ -419,7 +419,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: back_step_01
-  m_Speed: 1.5
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6475905441438279576}

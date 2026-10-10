@@ -76,6 +76,9 @@ PrefabInstance:
       addedObject: {fileID: 8825879313585656692}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -6164467677125729463}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1618694597994464719}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c82d1255d59b0b94e940918cb2f8afd0, type: 3}
       insertIndex: -1
@@ -160,6 +163,8 @@ MonoBehaviour:
   canMove: 1
   playerAnimatorManager: {fileID: 0}
   playerLocomotionManager: {fileID: 0}
+  playerNetworkManager: {fileID: 0}
+  playerStatsManager: {fileID: 0}
 --- !u!114 &-9186502219122293762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +206,26 @@ MonoBehaviour:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
     m_InternalValue: 0
+  isSprinting:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  endurance:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 1
+  currentStamina:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  maxStamina:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
 --- !u!114 &-4225172087078109580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +243,9 @@ MonoBehaviour:
   moveAmount: 0
   walkingSpeed: 2
   runningSpeed: 5
+  sprintingSpeed: 7.5
   rotationSpeed: 15
+  sprintingStaminaCost: 2
 --- !u!114 &8825879313585656692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +258,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf7d288fdeea684c80073fe757a8f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationManager
+--- !u!114 &-6164467677125729463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098273600992586596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94bb258e0b5006145a20d4a9d8cb59f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsManager
+  staminaRegenDelay: 1.5
+  staminaRegenAmount: 1
 --- !u!114 &1618694597994464719
 MonoBehaviour:
   m_ObjectHideFlags: 0

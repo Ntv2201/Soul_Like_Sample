@@ -1,3 +1,4 @@
+using System.Globalization;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
@@ -18,9 +19,11 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [SerializeField] float runningSpeed = 5;
     [SerializeField] float sprintingSpeed = 7.5f;
     [SerializeField] float rotationSpeed = 15;
+    [SerializeField] int sprintingStaminaCost = 2;
 
     [Header("Dodge")]
     private Vector3 rollDirection;
+    [SerializeField] float dodgeStaminaCost = 2;
 
     protected override void Awake()
     {
@@ -131,6 +134,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     {
         if(player.isPerformingAction) return;
 
+        if(player.playerNetworkManager.currentStamina.Value <= 0) return;
+
         if(PlayerInputManager.instance.moveAmount > 0)
         {
             Vector3 cameraForward = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
@@ -153,6 +158,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             // perfrom backstep animation
             player.playerAnimatorManager.PlayTargetAnimation("back_step_01", true, true);
         }
+        player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
 
     }
 
@@ -161,6 +167,12 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (player.isPerformingAction)
         {
             player.playerNetworkManager.isSprinting.Value = false;
+        }
+ 
+        if(player.playerNetworkManager.currentStamina.Value <= 0)
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+            return;
         }
 
         // if we're moving, sprinting is true
@@ -174,7 +186,10 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             player.playerNetworkManager.isSprinting.Value = false;
         }
 
-        //
+        if (player.playerNetworkManager.isSprinting.Value)
+        {
+            player.playerNetworkManager.currentStamina.Value -= sprintingStaminaCost * Time.deltaTime;
+        }
 
     }
 
